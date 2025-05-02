@@ -12,109 +12,91 @@ class RegisterScreen extends StatelessWidget {
     final width=MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: height*.075),
-          child: Form(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Image.asset("${path}logo.png",width: width*.18,),
-                RichText(text: TextSpan(
+      body: Padding(
+        padding: EdgeInsets.symmetric(vertical: height*.075,horizontal: width*.05),
+        child: Form(
+          child: ListView(
+            children: [
+              SizedBox(
+                  height: height*.08,
+                  child: Image.asset("${path}logo.png",scale: 2.5,)),
+              SizedBox(height: height*.02,),
+              Center(
+                child: RichText(text: TextSpan(
                     children: [
-                      TextSpan(text: "Quarizm",style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                      )),
-                      TextSpan(text: "Tech",style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                      ),),
+                      headerText(text: "Quarizm",textColor: Colors.grey,),
+                      headerText(text: "Tech",textColor: Colors.black,),
                     ]
                 )),
-                Text("Create Account ",style: TextStyle(
+              ),
+              SizedBox(height: height*.02,),
+              Text("Create Account ",style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+                textAlign: TextAlign.center,),
+              SizedBox(height: height*.02,),
+              Text("We are here to help you!",style: TextStyle(
+                color: Colors.grey,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+                textAlign: TextAlign.center,),
+              SizedBox(height: height*.03,),
+              CustomTextForm(width: width,hintText: "Your Name",prefixIcon: Icons.person_outline,),
+              SizedBox(height: height*.03,),
+              CustomTextForm(width: width,hintText: "Your Email",prefixIcon:Icons.email_outlined,),
+              SizedBox(height: height*.03,),
+              CustomTextForm(width: width,hintText: "Password",prefixIcon: Icons.lock_outline,),
+              SizedBox(height: height*.035,),
+              Container(
+                height: height*.065,
+                width: width*.9,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
                   color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),),
-                Text("We are here to help you!",style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),),
-                CustomTextForm(width: width,hintText: "Your Name",prefixIcon: Icons.person_outline,),
-                CustomTextForm(width: width,hintText: "Your Email",prefixIcon:Icons.email_outlined,),
-                CustomTextForm(width: width,hintText: "Password",prefixIcon: Icons.lock_outline,),
-                Container(
-                  height: height*.065,
-                  width: width*.9,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Colors.black,
-                  ),
-                  child: Center(
-                    child: Text("Create Account",style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),),
-                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      height: 1,
-                      width: width*.4,
-                      color: Colors.grey.shade500,
-                    ),
-                    Text("OR",style: TextStyle(
+                child: Center(
+                  child: Text("Sign In",style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),),
+                ),
+              ),
+              SizedBox(height: height*.04,),
+              orDivider(width),
+              SizedBox(height: height*.04,),
+              loginContainer(height, width, text: "Sign In with Google", image: "google.png"),
+              SizedBox(height: height*.03,),
+              loginContainer(height, width, text: "Sign In with Facebook", image: "Facebook.png"),
+              SizedBox(height: height*.02,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Do you have an account? ",
+                    style: TextStyle(
                       color: Colors.grey,
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w500,
-                    ),),
-                    Container(
-                      height: 1,
-                      width: width*.4,
-                      color: Colors.grey.shade500,
                     ),
-                  ],
-                ),
-                loginContainer(height, width, text: "Continue with Google", image: "google.png"),
-                loginContainer(height, width, text: "Continue with Facebook", image: "Facebook.png"),
-                Text("Forget Password?",style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Do you have an account? ",
+                  ),
+                  GestureDetector(
+                    child: Text("Sign In",
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: Colors.blue,
                         fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    GestureDetector(
-                      child: Text("Sign In",
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onTap: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (_) => LoginScreen()));
-                      },
-                    ),
-                  ],
-                )
-              ],
-            ),
+                    onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => LoginScreen()));
+                    },
+                  ),
+                ],
+              )
+            ],
           ),
         ),
       ),
@@ -143,6 +125,38 @@ class RegisterScreen extends StatelessWidget {
           )),
         ],
       ),
+    );
+  }
+  TextSpan headerText({
+    required String text,
+    required Color textColor,
+  }) {
+    return TextSpan(text: text,style: TextStyle(
+      color: textColor,
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+    ));
+  }
+  Row orDivider(double width) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Container(
+          height: 1,
+          width: width*.4,
+          color: Colors.grey.shade500,
+        ),
+        Text("OR",style: TextStyle(
+          color: Colors.grey,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),),
+        Container(
+          height: 1,
+          width: width*.4,
+          color: Colors.grey.shade500,
+        ),
+      ],
     );
   }
 }
