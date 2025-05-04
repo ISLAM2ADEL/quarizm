@@ -1,18 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quarizm/const.dart';
+import 'package:quarizm/cubit/login_register_cubit/login_register_cubit.dart';
 import 'package:quarizm/custom_widgets/custom_text_form.dart';
 
-class ForgetScreen extends StatelessWidget {
+class ForgetScreen extends StatefulWidget {
   const ForgetScreen({super.key});
+
+  @override
+  State<ForgetScreen> createState() => _ForgetScreenState();
+}
+
+class _ForgetScreenState extends State<ForgetScreen> {
+  final _formForgetKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
+    final cubit=context.read<LoginRegisterCubit>();
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding:  EdgeInsets.symmetric(vertical: height*.1,horizontal: width*.05),
+      body: BlocListener<LoginRegisterCubit, LoginRegisterState>(
+  listener: (context, state) {
+    if(state is ForgetPasswordSuccess){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Check your email and change your password"),
+          backgroundColor: Colors.green,
+            ),
+      );
+      Navigator.of(context).pop();
+    }
+    else if(state is ForgetPasswordFailure){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(state.errorMessage),
+          backgroundColor: Colors.red,
+            ),
+      );
+    }
+  },
+  child: Padding(
+        padding:  EdgeInsets.only(
+          top: height * .05,
+          left: width*.05,
+          right: width*.05,
+        ),
         child: ListView(
           children: [
             Center(
@@ -21,12 +55,12 @@ class ForgetScreen extends StatelessWidget {
             SizedBox(height: height*.02,),
             Center(
               child: RichText(text: TextSpan(
-                  children: [
-                    headerText(text: "Quarizm",textColor: Colors.grey,),
-                    headerText(text: "Tech",textColor: Colors.black,),
-          ],
-        ),
-            ),
+                children: [
+                  headerText(text: "Quarizm",textColor: Colors.grey,),
+                  headerText(text: "Tech",textColor: Colors.black,),
+                ],
+              ),
+              ),
             ),
             SizedBox(height: height*.035,),
             Text("Forget Password?",style: TextStyle(
@@ -45,26 +79,53 @@ class ForgetScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             SizedBox(height: height*.03,),
-            CustomTextForm(width: width,hintText: "Your Email",prefixIcon:Icons.email_outlined,),
-            SizedBox(height: height*.035,),
-            Container(
-              height: height*.065,
-              width: width*.9,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: Colors.black,
+            Form(
+              key: _formForgetKey,
+              child: Column(
+                children: [
+                  CustomTextForm(width: width,hintText: "Your Email",controller: cubit.getEmailForgetController(),prefixIcon:Icons.email_outlined,validator: (val){
+                    if(val!.isEmpty){
+                      return "Please Enter Your Email";
+                    }
+                    return null;
+                  },),
+                  SizedBox(height: height*.035,),
+                  BlocBuilder<LoginRegisterCubit, LoginRegisterState>(
+  builder: (context, state) {
+    if(state is ForgetPasswordLoading){
+      return CircularProgressIndicator();
+    }
+    return GestureDetector(
+                    child: Container(
+                      height: height*.065,
+                      width: width*.9,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.black,
+                      ),
+                      child:Center(
+                        child: Text("Send Code",style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),),
+                      ),
+                    ),
+                    onTap: (){
+                      if(_formForgetKey.currentState!.validate()){
+                        cubit.forgetPassword(cubit.getEmailForgetController().text);
+                      }
+                    },
+                  );
+  },
+),
+                ],
+              ),
             ),
-                child:Center(
-                  child: Text("Send Code",style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),),
-                ),
-            ),
-            ],
+          ],
         ),
       ),
+),
     );
   }
   TextSpan headerText({
@@ -78,3 +139,5 @@ class ForgetScreen extends StatelessWidget {
     ));
   }
 }
+
+

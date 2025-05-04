@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "197747192605",
+    "project_id": "quarizm-f4281",
+    "storage_bucket": "quarizm-f4281.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:197747192605:android:4a659a94cf958a8efc27f4",
+        "android_client_info": {
+          "package_name": "com.example.quarizm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEkOF8AVFVzbZ3ybMgX9nDSMS0I9HF6tw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

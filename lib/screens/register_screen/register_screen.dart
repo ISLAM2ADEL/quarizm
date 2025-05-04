@@ -19,157 +19,206 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final cubit = context.read<LoginRegisterCubit>();
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: EdgeInsets.symmetric(vertical: height * .05, horizontal: width * .05),
-        child: ListView(
-          children: [
-            SizedBox(
-              height: height * .08,
-              child: Image.asset("${path}logo.png", scale: 2.5),
-            ),
-            SizedBox(height: height * .02),
-            Center(
-              child: RichText(
-                text: TextSpan(children: [
-                  headerText(text: "Quarizm", textColor: Colors.grey),
-                  headerText(text: "Tech", textColor: Colors.black),
-                ]),
+      body: BlocListener<LoginRegisterCubit, LoginRegisterState>(
+        listener: (context, state) {
+          if (state is RegisterFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.errorMessage),
+                backgroundColor: Colors.red,
               ),
-            ),
-            SizedBox(height: height * .02),
-            Text(
-              "Create Your Account",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+            );
+          } else if (state is RegisterSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("Check your email to verify your account"),
+                backgroundColor: Colors.green,
               ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: height * .02),
-            Text(
-              "Let’s get started!",
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
+            );
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => LoginScreen()),
+            );
+          }
+        },
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: height * .05,
+            left: width*.05,
+            right: width*.05,
+          ),
+          child: ListView(
+            children: [
+              SizedBox(
+                height: height * .08,
+                child: Image.asset("${path}logo.png", scale: 2.5),
               ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: height * .03),
-            Form(
-              key: _formRegisterKey,
-              child: Column(
+              SizedBox(height: height * .02),
+              Center(
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      headerText(text: "Quarizm", textColor: Colors.grey),
+                      headerText(text: "Tech", textColor: Colors.black),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: height * .02),
+              Text(
+                "Create Your Account",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: height * .02),
+              Text(
+                "Let’s get started!",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: height * .03),
+              Form(
+                key: _formRegisterKey,
+                child: Column(
+                  children: [
+                    CustomTextForm(
+                      width: width,
+                      hintText: "Your Name",
+                      prefixIcon: Icons.person_outline,
+                      controller: cubit.getNameRegisterController(),
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return "Please Enter Your Name";
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: height * .025),
+                    CustomTextForm(
+                      width: width,
+                      hintText: "Your Email",
+                      prefixIcon: Icons.email_outlined,
+                      controller: cubit.getEmailRegisterController(),
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return "Please Enter Your Email";
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: height * .025),
+                    CustomTextForm(
+                      width: width,
+                      hintText: "Password",
+                      isPassword: true,
+                      prefixIcon: Icons.lock_outline,
+                      controller: cubit.getPasswordRegisterController(),
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return "Please Enter Your Password";
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: height * .035),
+                    BlocBuilder<LoginRegisterCubit, LoginRegisterState>(
+                      builder: (context, state) {
+                        if (state is RegisterLoading) {
+                          return CircularProgressIndicator();
+                        }
+                        return GestureDetector(
+                          onTap: () {
+                            if (_formRegisterKey.currentState!.validate()) {
+                              cubit.registerUser(
+                                cubit.getNameRegisterController().text,
+                                cubit.getEmailRegisterController().text,
+                                cubit.getPasswordRegisterController().text,
+                              );
+                            }
+                          },
+                          child: Container(
+                            height: height * .065,
+                            width: width * .9,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: Colors.black,
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Sign Up",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: height * .04),
+              orDivider(width),
+              SizedBox(height: height * .04),
+              loginContainer(
+                height,
+                width,
+                text: "Sign Up with Google",
+                image: "google.png",
+              ),
+              SizedBox(height: height * .03),
+              loginContainer(
+                height,
+                width,
+                text: "Sign Up with Facebook",
+                image: "Facebook.png",
+              ),
+              SizedBox(height: height * .02),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CustomTextForm(
-                    width: width,
-                    hintText: "Your Name",
-                    prefixIcon: Icons.person_outline,
-                    controller: context.read<LoginRegisterCubit>().getNameRegisterController(),
-                    validator: (val) {
-                      if (val!.isEmpty) {
-                        return "Please Enter Your Name";
-                      }
-                      return null;
-                    },
+                  Text(
+                    "Already have an account? ",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                  SizedBox(height: height * .025),
-                  CustomTextForm(
-                    width: width,
-                    hintText: "Your Email",
-                    prefixIcon: Icons.email_outlined,
-                    controller: context.read<LoginRegisterCubit>().getEmailRegisterController(),
-                    validator: (val) {
-                      if (val!.isEmpty) {
-                        return "Please Enter Your Email";
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: height * .025),
-                  BlocBuilder<LoginRegisterCubit, LoginRegisterState>(
-                    builder: (context, state) {
-                      return CustomTextForm(
-                        width: width,
-                        hintText: "Password",
-                        isPassword: true,
-                        prefixIcon: Icons.lock_outline,
-                        controller: context.read<LoginRegisterCubit>().getPasswordRegisterController(),
-                        validator: (val) {
-                          if (val!.isEmpty) {
-                            return "Please Enter Your Password";
-                          }
-                          return null;
-                        },
-                      );
-                    },
-                  ),
-                  SizedBox(height: height * .035),
                   GestureDetector(
                     onTap: () {
-                      if (_formRegisterKey.currentState!.validate()) {
-                        print("Registration Success");
-                      }
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => LoginScreen()),
+                      );
                     },
-                    child: Container(
-                      height: height * .065,
-                      width: width * .9,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.black,
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Sign Up",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                    child: Text(
+                      "Sign In",
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ],
               ),
-            ),
-            SizedBox(height: height * .04),
-            orDivider(width),
-            SizedBox(height: height * .04),
-            loginContainer(height, width, text: "Sign Up with Google", image: "google.png"),
-            SizedBox(height: height * .03),
-            loginContainer(height, width, text: "Sign Up with Facebook", image: "Facebook.png"),
-            SizedBox(height: height * .02),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Already have an account? ",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => LoginScreen()));
-                  },
-                  child: Text(
-                    "Sign In",
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+              SizedBox(height: height * .02),
+            ],
+          ),
         ),
       ),
     );
@@ -212,7 +261,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Container loginContainer(double height, double width, {required String text, required String image}) {
+  Container loginContainer(double height, double width,
+      {required String text, required String image}) {
     return Container(
       height: height * .06,
       width: width * .9,

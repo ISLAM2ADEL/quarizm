@@ -20,3 +20,30 @@ List<Map<String,String>>onboardingScreens=[
     "description": " Explore a Vast Array of Online Medical Specialists, Offering an Extensive Range of Expertise Tailored to Your Healthcare Needs..",
   },
 ];
+
+List<Map<String,dynamic>>doctorContainer=[
+  {
+    "image": "${path}doctor 1.png",
+    "title": "Looking For Specialist Doctors?",
+    "description": "Schedule an appointment with our top doctors.",
+    "colors": Colors.green.shade300,
+  },
+  {
+    "image": "${path}doctor 2.png",
+    "title": "Need a Health Checkup?",
+    "description": "Book a full body checkup with our trusted specialists.",
+    "colors": Colors.blue.shade300,
+  },
+  {
+    "image": "${path}doctor 3.png",
+    "title": "Talk to a Doctor Online!",
+    "description": "Connect instantly with certified doctors anytime, anywhere.",
+    "colors": Colors.orange.shade300,
+  },
+  {
+    "image": "${path}doctor 4.png",
+    "title": "Get Expert Medical Advice",
+    "description": "Your health matters — consult our professionals today.",
+    "colors": Colors.red.shade300,
+  },
+];

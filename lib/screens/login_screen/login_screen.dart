@@ -4,6 +4,7 @@ import 'package:quarizm/const.dart';
 import 'package:quarizm/cubit/login_register_cubit/login_register_cubit.dart';
 import 'package:quarizm/custom_widgets/custom_text_form.dart';
 import 'package:quarizm/screens/forget_screen/forget_screen.dart';
+import 'package:quarizm/screens/home_screen/home_screen.dart';
 import 'package:quarizm/screens/register_screen/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -19,12 +20,31 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-
+    final cubit = context.read<LoginRegisterCubit>();
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: EdgeInsets.symmetric(vertical: height * .05, horizontal: width * .05),
+      body: BlocListener<LoginRegisterCubit, LoginRegisterState>(
+        listener: (context, state) {
+          if (state is LoginFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.errorMessage),
+                backgroundColor: Colors.red,
+              ),
+            );
+          } else if (state is LoginSuccess) {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => HomeScreen()),
+            );
+          }
+        },
+  child: Padding(
+        padding: EdgeInsets.only(
+          top: height * .05,
+          left: width*.05,
+          right: width*.05,
+        ),
         child: ListView(
           children: [
             SizedBox(
@@ -71,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: width,
                     hintText: "Your Email",
                     prefixIcon: Icons.email_outlined,
-                    controller: context.read<LoginRegisterCubit>().getEmailSignController(),
+                    controller: cubit.getEmailSignController(),
                     validator: (val) {
                       if (val!.isEmpty) {
                         return "Please Enter Your Email";
@@ -80,25 +100,26 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   SizedBox(height: height * .03),
-                  BlocBuilder<LoginRegisterCubit, LoginRegisterState>(
-                    builder: (context, state) {
-                      return CustomTextForm(
-                        width: width,
-                        hintText: "Password",
-                        isPassword: true,
-                        prefixIcon: Icons.lock_outline,
-                        controller: context.read<LoginRegisterCubit>().getPasswordSignController(),
-                        validator: (val) {
-                          if (val!.isEmpty) {
-                            return "Please Enter Your Password";
-                          }
-                          return null;
-                        },
-                      );
+                  CustomTextForm(
+                    width: width,
+                    hintText: "Password",
+                    isPassword: true,
+                    prefixIcon: Icons.lock_outline,
+                    controller: cubit.getPasswordSignController(),
+                    validator: (val) {
+                      if (val!.isEmpty) {
+                        return "Please Enter Your Password";
+                      }
+                      return null;
                     },
                   ),
                   SizedBox(height: height * .035),
-                  GestureDetector(
+                  BlocBuilder<LoginRegisterCubit, LoginRegisterState>(
+  builder: (context, state) {
+    if (state is LoginLoading) {
+     return CircularProgressIndicator();
+    }
+    return GestureDetector(
                     child: Container(
                       height: height * .065,
                       width: width * .9,
@@ -119,10 +140,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     onTap: () {
                       if (_formLoginKey.currentState!.validate()) {
-                        print("Success");
+                        cubit.signInUser(cubit.getEmailSignController().text, cubit.getPasswordSignController().text);
                       }
                     },
-                  ),
+                  );
+  },
+),
                 ],
               ),
             ),
@@ -174,9 +197,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ],
             ),
+            SizedBox(height: height * .02),
           ],
         ),
       ),
+),
     );
   }
 
