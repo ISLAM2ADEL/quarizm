@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quarizm/const.dart';
 import 'package:quarizm/cubit/category_cubit/category_cubit.dart';
+import 'package:quarizm/custom_widgets/bottom_icon_bar.dart';
 import 'package:quarizm/custom_widgets/search_form.dart';
-import 'package:quarizm/firebase/category_firebase/category_firebase.dart';
 import 'package:quarizm/screens/category_screen/category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -59,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   },
   child: Scaffold(
+    bottomNavigationBar: BottomIconBar(height: height),
       backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: width*.07,vertical: height*.05),
@@ -74,13 +75,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),),
                 GestureDetector(
                   onTap: (){
-                    CategoryFirebase().addMedicalCategories();
+                    //CategoryFirebase().addMedicalCategories();
                   },
                     child: Icon(Icons.notifications_none_outlined)),
               ],
             ),
             SizedBox(height: height*.03,),
-            SearchForm(),
+            SearchForm(hintText: "Search Doctor...",),
             SizedBox(height: height*.02,),
             doctorContainers(height, width),
             SizedBox(height: height*.02,),
@@ -128,7 +129,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           (index) => categoryBoxes(
                         height,
                         width,
-                        colors: Colors.green.shade300,
+                        color1: categoryColors[index]['color1']!,
+                        color2: categoryColors[index]['color2']!,
+                        color3: categoryColors[index]['color3']!,
+                        color4: categoryColors[index]['color4']!,
                         title: categoryList[index]['name'],
                             image: categoryList[index]['image'],
                       ),
@@ -149,35 +153,55 @@ class _HomeScreenState extends State<HomeScreen> {
 );
   }
 
-  Column categoryBoxes(double height, double width, {
-    required Color colors,
+  Widget categoryBoxes(double height, double width, {
+    required Color color1,
+    required Color color2,
+    required Color color3,
+    required Color color4,
     required String title,
     required String image,
   }) {
-    return Column(
-      children: [
-        Container(
-          height: height * .085,
-          width: width * .18,
-          decoration: BoxDecoration(
-            color: colors,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Center(child: Image.asset(image,width: width*.13,)),
-        ),
-        SizedBox(height: height * .01),
-        Expanded(
-          child: Text(
-            title,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 14,
-
+    return GestureDetector(
+      child: Column(
+        children: [
+          Container(
+            height: height * .085,
+            width: width * .18,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(colors: <Color>[
+                color1,
+                color2,
+                color3,
+                color4,
+              ]),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Center(child:
+            FadeInImage.assetNetwork(
+              placeholder: '${path}loading.png', // صورة مؤقتة أو لودر
+              image: image,width: width*.13,
+            ),
             ),
           ),
-        ),
-      ],
+          SizedBox(height: height * .01),
+          SizedBox(
+            width: width * .26,
+            child: Text(
+              title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 14,
+              ),
+            ),
+          ),
+        ],
+      ),
+      onTap: (){
+        print(title);
+      },
     );
   }
 
@@ -247,4 +271,5 @@ class _HomeScreenState extends State<HomeScreen> {
           );
   }
 }
+
 

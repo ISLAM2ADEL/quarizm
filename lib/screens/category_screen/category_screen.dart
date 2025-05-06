@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quarizm/const.dart';
 import 'package:quarizm/cubit/category_cubit/category_cubit.dart';
+import 'package:quarizm/custom_widgets/search_form.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -44,48 +46,59 @@ class _CategoryScreenState extends State<CategoryScreen> {
           icon: Icon(Icons.arrow_back_ios_new_outlined,color: Colors.black,),
       ),
       ),
-      body: ListView(
-        children: [
-          SizedBox(height: height*.03,),
-          BlocBuilder<CategoryCubit, CategoryState>(
-            builder: (context, state) {
-              if (state is CategoryLoading) {
-                return Center(child: CircularProgressIndicator());
-              } else if (state is CategorySuccess) {
-                final categoryList = context.read<CategoryCubit>().categories;
-                return GridView.count(
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 4,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  childAspectRatio: 0.75,
-                  children: List.generate(
-                    categoryList.length,
-                        (index) => categoryBoxes(
-                      height,
-                      width,
-                      colors: Colors.green.shade300,
-                      title: categoryList[index]['name'],
-                      image: categoryList[index]['image'],
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: width*.05),
+        child: ListView(
+          children: [
+            SizedBox(height: height*.03,),
+            SearchForm(hintText: "Search Category..."),
+            SizedBox(height: height*.04,),
+            BlocBuilder<CategoryCubit, CategoryState>(
+              builder: (context, state) {
+                if (state is CategoryLoading) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (state is CategorySuccess) {
+                  final categoryList = context.read<CategoryCubit>().categories;
+                  return GridView.count(
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 10,
+                    crossAxisCount: 4,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    childAspectRatio: 0.75,
+                    children: List.generate(
+                      categoryList.length,
+                          (index) => categoryBoxes(
+                        height,
+                        width,
+                            color1: categoryColors[index]['color1']!,
+                            color2: categoryColors[index]['color2']!,
+                            color3: categoryColors[index]['color3']!,
+                            color4: categoryColors[index]['color4']!,
+                        title: categoryList[index]['name'],
+                        image: categoryList[index]['image'],
+                      ),
                     ),
-                  ),
-                );
-              } else if (state is CategoryFailure) {
-                return Center(child: Text(state.errorMessage));
-              } else {
-                return SizedBox(); // fallback
-              }
-            },
-          ),
-        ],
+                  );
+                } else if (state is CategoryFailure) {
+                  return Center(child: Text(state.errorMessage));
+                } else {
+                  return SizedBox(); // fallback
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   },
 );
   }
-  Column categoryBoxes(double height, double width, {
-    required Color colors,
+  Widget categoryBoxes(double height, double width, {
+    required Color color1,
+    required Color color2,
+    required Color color3,
+    required Color color4,
     required String title,
     required String image,
   }) {
@@ -95,20 +108,32 @@ class _CategoryScreenState extends State<CategoryScreen> {
           height: height * .085,
           width: width * .18,
           decoration: BoxDecoration(
-            color: colors,
+            gradient: LinearGradient(colors: <Color>[
+              color1,
+              color2,
+              color3,
+              color4,
+            ]),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Center(child: Image.asset(image,width: width*.13,)),
+          child: Center(child:
+          FadeInImage.assetNetwork(
+            placeholder: '${path}loading.png',
+            image: image,width: width*.13,
+          ),
+          ),
         ),
         SizedBox(height: height * .01),
-        Expanded(
+        SizedBox(
+          width: width * .26,
           child: Text(
             title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black,
               fontSize: 14,
-
             ),
           ),
         ),

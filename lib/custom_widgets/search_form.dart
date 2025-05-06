@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SearchForm extends StatelessWidget {
+  final String hintText;
   const SearchForm({
+    required this.hintText,
     super.key,
   });
 
@@ -17,7 +19,7 @@ class SearchForm extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: Colors.green),
         ),
-        hintText: "Search Doctor...",
+        hintText: hintText,
         prefixIcon: Icon(Icons.search),
         filled: true,
         fillColor: Colors.grey.shade200,
