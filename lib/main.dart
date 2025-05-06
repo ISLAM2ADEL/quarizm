@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quarizm/cubit/category_cubit/category_cubit.dart';
 import 'package:quarizm/cubit/login_register_cubit/login_register_cubit.dart';
 import 'package:quarizm/cubit/onboarding_cubit/onboarding_cubit.dart';
+import 'package:quarizm/screens/home_screen/home_screen.dart';
 import 'package:quarizm/screens/onboarding_screen/onboarding_screens.dart';
 
 void main() async {
@@ -26,11 +29,14 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => LoginRegisterCubit(),
         ),
+        BlocProvider(
+          create: (context) => CategoryCubit(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Quarizm Tech',
-        home: OnboardingScreens(),
+        home: FirebaseAuth.instance.currentUser != null?HomeScreen():OnboardingScreens(),
       ),
     );
   }

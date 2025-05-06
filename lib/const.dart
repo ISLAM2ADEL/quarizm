@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 const Color greyColor=Color(0xff9CA3AF);
@@ -46,4 +47,11 @@ List<Map<String,dynamic>>doctorContainer=[
     "description": "Your health matters — consult our professionals today.",
     "colors": Colors.red.shade300,
   },
+];
+
+List<Map<String,dynamic>> categoryContainer=[
+  {
+    "icons": Icon(CupertinoIcons.heart),
+    "colors": Colors.green.shade300,
+  }
 ];

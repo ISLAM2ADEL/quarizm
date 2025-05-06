@@ -1,8 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quarizm/const.dart';
+import 'package:quarizm/cubit/category_cubit/category_cubit.dart';
 import 'package:quarizm/custom_widgets/search_form.dart';
+import 'package:quarizm/firebase/category_firebase/category_firebase.dart';
+import 'package:quarizm/screens/category_screen/category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _pageController = PageController();
-
+    BlocProvider.of<CategoryCubit>(context).getCategories();
     Timer.periodic(Duration(seconds: 3), (Timer timer) {
       if (_currentPage < doctorContainer.length - 1) {
         _currentPage++;
@@ -43,7 +47,18 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
-    return Scaffold(
+    return BlocListener<CategoryCubit, CategoryState>(
+  listener: (context, state) {
+    if (state is CategoryFailure) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(state.errorMessage),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  },
+  child: Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: width*.07,vertical: height*.05),
@@ -52,12 +67,15 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Hello, User",style: TextStyle(
+                Text("Welcome Back!",style: TextStyle(
                   color: Colors.black,
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                 ),),
                 GestureDetector(
+                  onTap: (){
+                    CategoryFirebase().addMedicalCategories();
+                  },
                     child: Icon(Icons.notifications_none_outlined)),
               ],
             ),
@@ -75,51 +93,94 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontWeight: FontWeight.bold,
                 ),
                 ),
-                Text("See All",style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
+                GestureDetector(
+                  child: Text("See All",style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  ),
+                  onTap: (){
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => CategoryScreen()),
+                    );
+                  },
+
                 ),
               ],
             ),
             SizedBox(height: height*.02,),
-            GridView.count(
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                crossAxisCount: 4,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(), // Prevent nested scroll issues
-              childAspectRatio: 0.75, // Controls height vs width
-              children: List.generate(8, (index) => categoryBoxes(height, width)),
+            BlocBuilder<CategoryCubit, CategoryState>(
+              builder: (context, state) {
+                if (state is CategoryLoading) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (state is CategorySuccess) {
+                  final categoryList = context.read<CategoryCubit>().categories;
+                  return GridView.count(
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    crossAxisCount: 4,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    childAspectRatio: 0.75,
+                    children: List.generate(
+                      8,
+                          (index) => categoryBoxes(
+                        height,
+                        width,
+                        colors: Colors.green.shade300,
+                        title: categoryList[index]['name'],
+                            image: categoryList[index]['image'],
+                      ),
+                    ),
+                  );
+                } else if (state is CategoryFailure) {
+                  return Center(child: Text(state.errorMessage));
+                } else {
+                  return SizedBox(); // fallback
+                }
+              },
             ),
             SizedBox(height: height*.02,),
           ],
         ),
       ),
+    ),
+);
+  }
+
+  Column categoryBoxes(double height, double width, {
+    required Color colors,
+    required String title,
+    required String image,
+  }) {
+    return Column(
+      children: [
+        Container(
+          height: height * .085,
+          width: width * .18,
+          decoration: BoxDecoration(
+            color: colors,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Center(child: Image.asset(image,width: width*.13,)),
+        ),
+        SizedBox(height: height * .01),
+        Expanded(
+          child: Text(
+            title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 14,
+
+            ),
+          ),
+        ),
+      ],
     );
   }
 
-  Column categoryBoxes(double height, double width) {
-    return Column(
-                  children: [
-                    Container(
-                      height: height*.08,
-                      width: width*.18,
-                      decoration: BoxDecoration(
-                        color: Colors.green.shade300,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    SizedBox(height: height*.01,),
-                    Text("text",style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      ),
-                    ),
-                  ],
-                );
-  }
 
   SizedBox doctorContainers(double height, double width) {
     return SizedBox(
