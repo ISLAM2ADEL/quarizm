@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quarizm/cubit/bottom_cubit/bottom_cubit.dart';
 import 'package:quarizm/cubit/category_cubit/category_cubit.dart';
+import 'package:quarizm/cubit/doctor_cubit/doctor_cubit.dart';
 import 'package:quarizm/cubit/login_register_cubit/login_register_cubit.dart';
 import 'package:quarizm/cubit/onboarding_cubit/onboarding_cubit.dart';
 import 'package:quarizm/screens/home_screen/home_screen.dart';
@@ -35,6 +36,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => BottomCubit(),
+        ),
+        BlocProvider(
+          create: (context) => DoctorCubit(),
         ),
       ],
       child: MaterialApp(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quarizm/const.dart';
 import 'package:quarizm/cubit/category_cubit/category_cubit.dart';
+import 'package:quarizm/custom_widgets/category_boxes.dart';
 import 'package:quarizm/custom_widgets/search_form.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -68,9 +69,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     childAspectRatio: 0.75,
                     children: List.generate(
                       categoryList.length,
-                          (index) => categoryBoxes(
-                        height,
-                        width,
+                          (index) => CategoryBoxes(
+                        height: height,
+                        width: width,
                             color1: categoryColors[index]['color1']!,
                             color2: categoryColors[index]['color2']!,
                             color3: categoryColors[index]['color3']!,
@@ -93,51 +94,5 @@ class _CategoryScreenState extends State<CategoryScreen> {
     );
   },
 );
-  }
-  Widget categoryBoxes(double height, double width, {
-    required Color color1,
-    required Color color2,
-    required Color color3,
-    required Color color4,
-    required String title,
-    required String image,
-  }) {
-    return Column(
-      children: [
-        Container(
-          height: height * .085,
-          width: width * .18,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(colors: <Color>[
-              color1,
-              color2,
-              color3,
-              color4,
-            ]),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Center(child:
-          FadeInImage.assetNetwork(
-            placeholder: '${path}loading.png',
-            image: image,width: width*.13,
-          ),
-          ),
-        ),
-        SizedBox(height: height * .01),
-        SizedBox(
-          width: width * .26,
-          child: Text(
-            title,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 14,
-            ),
-          ),
-        ),
-      ],
-    );
   }
 }

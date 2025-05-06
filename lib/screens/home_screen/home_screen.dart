@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quarizm/const.dart';
 import 'package:quarizm/cubit/category_cubit/category_cubit.dart';
+import 'package:quarizm/cubit/doctor_cubit/doctor_cubit.dart';
 import 'package:quarizm/custom_widgets/bottom_icon_bar.dart';
+import 'package:quarizm/custom_widgets/category_boxes.dart';
+import 'package:quarizm/custom_widgets/doctor_boxes.dart';
 import 'package:quarizm/custom_widgets/search_form.dart';
+import 'package:quarizm/firebase/doctor_firebase/doctor_firebase.dart';
 import 'package:quarizm/screens/category_screen/category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,24 +23,33 @@ class _HomeScreenState extends State<HomeScreen> {
   late PageController _pageController;
   int _currentPage = 0;
   @override
+  @override
   void initState() {
     super.initState();
     _pageController = PageController();
-    BlocProvider.of<CategoryCubit>(context).getCategories();
-    Timer.periodic(Duration(seconds: 3), (Timer timer) {
-      if (_currentPage < doctorContainer.length - 1) {
-        _currentPage++;
-      } else {
-        _currentPage = 0;
-      }
 
-      _pageController.animateToPage(
-        _currentPage,
-        duration: Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
+    BlocProvider.of<CategoryCubit>(context).getCategories();
+    BlocProvider.of<DoctorCubit>(context).getDoctors();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Timer.periodic(Duration(seconds: 3), (Timer timer) {
+        if (!_pageController.hasClients) return;
+
+        if (_currentPage < doctorContainer.length - 1) {
+          _currentPage++;
+        } else {
+          _currentPage = 0;
+        }
+
+        _pageController.animateToPage(
+          _currentPage,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      });
     });
   }
+
 
   @override
   void dispose() {
@@ -75,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),),
                 GestureDetector(
                   onTap: (){
-                    //CategoryFirebase().addMedicalCategories();
+                    DoctorFirebase().addDoctors();
                   },
                     child: Icon(Icons.notifications_none_outlined)),
               ],
@@ -85,31 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: height*.02,),
             doctorContainers(height, width),
             SizedBox(height: height*.02,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Categories",style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-                ),
-                GestureDetector(
-                  child: Text("See All",style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  ),
-                  onTap: (){
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => CategoryScreen()),
-                    );
-                  },
-
-                ),
-              ],
-            ),
+            rowPart(context,title: "Categories"),
             SizedBox(height: height*.02,),
             BlocBuilder<CategoryCubit, CategoryState>(
               builder: (context, state) {
@@ -126,16 +115,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     childAspectRatio: 0.75,
                     children: List.generate(
                       8,
-                          (index) => categoryBoxes(
-                        height,
-                        width,
-                        color1: categoryColors[index]['color1']!,
-                        color2: categoryColors[index]['color2']!,
-                        color3: categoryColors[index]['color3']!,
-                        color4: categoryColors[index]['color4']!,
-                        title: categoryList[index]['name'],
-                            image: categoryList[index]['image'],
-                      ),
+                          (index) => CategoryBoxes(height: height,
+                              width: width,
+                              color1: categoryColors[index]['color1']!,
+                              color2: categoryColors[index]['color2']!,
+                              color3: categoryColors[index]['color3']!,
+                              color4: categoryColors[index]['color4']!,
+                              title: categoryList[index]['name'],
+                              image: categoryList[index]['image']),
                     ),
                   );
                 } else if (state is CategoryFailure) {
@@ -146,6 +133,39 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
             SizedBox(height: height*.02,),
+            rowPart(context,title: "Doctors"),
+            SizedBox(height: height*.02,),
+            BlocBuilder<DoctorCubit, DoctorState>(
+              builder: (context, state) {
+                if (state is DoctorLoading) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (state is DoctorSuccess) {
+                  final doctorList = context.read<DoctorCubit>().doctors;
+                  return GridView.count(
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 15,
+                    crossAxisCount: 2,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    childAspectRatio: 0.75,
+                    children: List.generate(
+                      10,
+                          (index) => DoctorBoxes(
+                              drName: doctorList[index]['name'],
+                              drCategory: doctorList[index]['category'],
+                              drExperience: doctorList[index]['experience'],
+                              drImage: doctorList[index]['image'],
+                              height: height,
+                              width: width),
+                    ),
+                  );
+                } else if (state is DoctorFailure) {
+                  return Center(child: Text(state.errorMessage));
+                } else {
+                  return SizedBox(); // fallback
+                }
+              },
+            ),
           ],
         ),
       ),
@@ -153,57 +173,36 @@ class _HomeScreenState extends State<HomeScreen> {
 );
   }
 
-  Widget categoryBoxes(double height, double width, {
-    required Color color1,
-    required Color color2,
-    required Color color3,
-    required Color color4,
+  Row rowPart(BuildContext context,{
     required String title,
-    required String image,
   }) {
-    return GestureDetector(
-      child: Column(
-        children: [
-          Container(
-            height: height * .085,
-            width: width * .18,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(colors: <Color>[
-                color1,
-                color2,
-                color3,
-                color4,
-              ]),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Center(child:
-            FadeInImage.assetNetwork(
-              placeholder: '${path}loading.png', // صورة مؤقتة أو لودر
-              image: image,width: width*.13,
-            ),
-            ),
-          ),
-          SizedBox(height: height * .01),
-          SizedBox(
-            width: width * .26,
-            child: Text(
-              title,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
+    return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(title,style: TextStyle(
                 color: Colors.black,
-                fontSize: 14,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
               ),
-            ),
-          ),
-        ],
-      ),
-      onTap: (){
-        print(title);
-      },
-    );
+              ),
+              GestureDetector(
+                child: Text("See All",style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+                ),
+                onTap: (){
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => CategoryScreen()),
+                  );
+                },
+
+              ),
+            ],
+          );
   }
+
 
 
   SizedBox doctorContainers(double height, double width) {
@@ -271,5 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
           );
   }
 }
+
+
 
 
