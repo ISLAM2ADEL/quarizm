@@ -20,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final textController=TextEditingController();
   late PageController _pageController;
   int _currentPage = 0;
   @override
@@ -94,11 +95,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             SizedBox(height: height*.03,),
-            SearchForm(hintText: "Search Doctor...",),
+            SearchForm(hintText: "Search Doctor...",controller: textController,),
             SizedBox(height: height*.02,),
             doctorContainers(height, width),
             SizedBox(height: height*.02,),
-            rowPart(context,title: "Categories"),
+            categoriesRow(context,title: "Categories"),
             SizedBox(height: height*.02,),
             BlocBuilder<CategoryCubit, CategoryState>(
               builder: (context, state) {
@@ -106,25 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Center(child: CircularProgressIndicator());
                 } else if (state is CategorySuccess) {
                   final categoryList = context.read<CategoryCubit>().categories;
-                  return GridView.count(
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    crossAxisCount: 4,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    childAspectRatio: 0.75,
-                    children: List.generate(
-                      8,
-                          (index) => CategoryBoxes(height: height,
-                              width: width,
-                              color1: categoryColors[index]['color1']!,
-                              color2: categoryColors[index]['color2']!,
-                              color3: categoryColors[index]['color3']!,
-                              color4: categoryColors[index]['color4']!,
-                              title: categoryList[index]['name'],
-                              image: categoryList[index]['image']),
-                    ),
-                  );
+                  return categoryCards(height, width, categoryList);
                 } else if (state is CategoryFailure) {
                   return Center(child: Text(state.errorMessage));
                 } else {
@@ -133,32 +116,25 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
             SizedBox(height: height*.02,),
-            rowPart(context,title: "Doctors"),
+            doctorsRow(context,title: "Doctors"),
             SizedBox(height: height*.02,),
             BlocBuilder<DoctorCubit, DoctorState>(
               builder: (context, state) {
                 if (state is DoctorLoading) {
                   return Center(child: CircularProgressIndicator());
                 } else if (state is DoctorSuccess) {
-                  final doctorList = context.read<DoctorCubit>().doctors;
-                  return GridView.count(
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 15,
-                    crossAxisCount: 2,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    childAspectRatio: 0.75,
-                    children: List.generate(
-                      10,
-                          (index) => DoctorBoxes(
-                              drName: doctorList[index]['name'],
-                              drCategory: doctorList[index]['category'],
-                              drExperience: doctorList[index]['experience'],
-                              drImage: doctorList[index]['image'],
-                              height: height,
-                              width: width),
-                    ),
+                  final cubit = context.read<DoctorCubit>();
+                  final doctorList = cubit.doctors;
+                  bool showAll=cubit.showAllDoctors;
+                  int doctorsNumber=cubit.doctorsNumber;
+                  return Column(
+                    children: [
+                      doctorsCards(showAll, doctorList, doctorsNumber, height, width),
+                      SizedBox(height: height*.02,),
+                      showAll?showLessContainer(height, width, context):showMoreOrAll(height, width),
+                    ],
                   );
+
                 } else if (state is DoctorFailure) {
                   return Center(child: Text(state.errorMessage));
                 } else {
@@ -173,7 +149,111 @@ class _HomeScreenState extends State<HomeScreen> {
 );
   }
 
-  Row rowPart(BuildContext context,{
+  GridView categoryCards(double height, double width, List<Map<String, dynamic>> categoryList) {
+    return GridView.count(
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  crossAxisCount: 4,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  childAspectRatio: 0.75,
+                  children: List.generate(
+                    context.read<CategoryCubit>().categoriesNumber==20?8:context.read<CategoryCubit>().categoriesNumber,
+                        (index) => CategoryBoxes(height: height,
+                            width: width,
+                            color1: categoryColors[index]['color1']!,
+                            color2: categoryColors[index]['color2']!,
+                            color3: categoryColors[index]['color3']!,
+                            color4: categoryColors[index]['color4']!,
+                            title: categoryList[index]['name'],
+                            image: categoryList[index]['image']),
+                  ),
+                );
+  }
+
+  Row showMoreOrAll(double height, double width) {
+    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        showContainer(height, width,text: "Show More"),
+                        showContainer(height, width,text: "Show All"),
+                      ],
+                    );
+  }
+
+  GestureDetector showLessContainer(double height, double width, BuildContext context) {
+    return GestureDetector(
+                      child: Container(
+                        height: height*.08,
+                        width: width*.9,
+                        decoration: BoxDecoration(
+                          color: Colors.greenAccent,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Center(
+                          child: Text("Show Less",style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          ),
+                        ),
+                      ),
+                      onTap: (){
+                        context.read<DoctorCubit>().showLess();
+                      },
+                    );
+  }
+
+  GridView doctorsCards(bool showAll, List<Map<String, dynamic>> doctorList, int doctorsNumber, double height, double width) {
+    return GridView.count(
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 15,
+                      crossAxisCount: 2,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      childAspectRatio: 0.75,
+                      children: List.generate(
+                        showAll?doctorList.length:doctorsNumber,
+                            (index) => DoctorBoxes(
+                                drName: doctorList[index]['name'],
+                                drCategory: doctorList[index]['category'],
+                                drExperience: doctorList[index]['experience'],
+                                drImage: doctorList[index]['image'],
+                                height: height,
+                                width: width),
+                      ),
+                    );
+  }
+
+  Widget showContainer(double height, double width,{
+    required String text,
+  }) {
+    return GestureDetector(
+      child: Container(
+                  height: height*.08,
+                  width: width*.4,
+                  decoration: BoxDecoration(
+                    color: text=="Show All"?Colors.greenAccent:Colors.yellowAccent.shade700,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Center(
+                    child: Text(text,style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),),
+                  ),
+                ),
+      onTap: (){
+        text=="Show All"?
+        context.read<DoctorCubit>().showAll()
+            :context.read<DoctorCubit>().increaseNumber();
+      },
+    );
+  }
+
+  Row categoriesRow(BuildContext context,{
     required String title,
   }) {
     return Row(
@@ -201,6 +281,118 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           );
+  }
+  Row doctorsRow(BuildContext context,{
+    required String title,
+  }) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(title,style: TextStyle(
+          color: Colors.black,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+        ),
+        GestureDetector(
+          child: Container(
+            height: 30,
+            width: 120,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              color: Colors.white,
+              border: Border.all(color: Colors.black),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Text(
+                  "Sort",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Icon(Icons.filter_alt_rounded, size: 22),
+              ],
+            ),
+          ),
+          onTap: () {
+            showModalBottomSheet(
+              context: context,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              ),
+              builder: (context) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ListTile(
+                      leading: Icon(Icons.sort_by_alpha),
+                      title: Text("From A to Z"),
+                      onTap: () {
+                        context.read<DoctorCubit>().getDoctorsAscending();
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.sort_by_alpha_outlined),
+                      title: Text("From Z to A"),
+                      onTap: () {
+                        context.read<DoctorCubit>().getDoctorsDescending();
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.trending_up),
+                      title: Text("Highest Experience"),
+                      onTap: () {
+                        context.read<DoctorCubit>().getDoctorsExperience();
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.trending_up),
+                      title: Text("Age Ascending"),
+                      onTap: () {
+                        context.read<DoctorCubit>().getDoctorsAgeAscendig();
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.trending_down),
+                      title: Text("Age Descending"),
+                      onTap: () {
+                        context.read<DoctorCubit>().getDoctorsAgeDescending();
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.male),
+                      title: Text("Male"),
+                      onTap: () {
+                        context.read<DoctorCubit>().getMaleDoctors();
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.female),
+                      title: Text("Female"),
+                      onTap: () {
+                        context.read<DoctorCubit>().getFemaleDoctors();
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+        )
+
+      ],
+    );
   }
 
 

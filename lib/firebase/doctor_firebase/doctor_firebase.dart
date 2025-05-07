@@ -8,7 +8,7 @@ class DoctorFirebase {
 
     List<Map<String, dynamic>> doctors = [
       {
-        "name": "Dr. Ahmed Youssef",
+        "name": "Ahmed Youssef",
         "age": 45,
         "gender": "Male",
         "experience": 20,
@@ -21,7 +21,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Mariam El-Sayed",
+        "name": "Mariam El-Sayed",
         "age": 38,
         "gender": "Female",
         "experience": 14,
@@ -34,7 +34,7 @@ class DoctorFirebase {
         "slotDuration": 20
       },
       {
-        "name": "Dr. Hossam Khaled",
+        "name": "Hossam Khaled",
         "age": 50,
         "gender": "Male",
         "experience": 25,
@@ -47,7 +47,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Salma Ibrahim",
+        "name": "Salma Ibrahim",
         "age": 34,
         "gender": "Female",
         "experience": 10,
@@ -60,7 +60,7 @@ class DoctorFirebase {
         "slotDuration": 20
       },
       {
-        "name": "Dr. Mahmoud Fathy",
+        "name": "Mahmoud Fathy",
         "age": 42,
         "gender": "Male",
         "experience": 17,
@@ -73,7 +73,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Nada Adel",
+        "name": "Nada Adel",
         "age": 36,
         "gender": "Female",
         "experience": 12,
@@ -86,7 +86,7 @@ class DoctorFirebase {
         "slotDuration": 20
       },
       {
-        "name": "Dr. Tarek Hassan",
+        "name": "Tarek Hassan",
         "age": 47,
         "gender": "Male",
         "experience": 22,
@@ -99,7 +99,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Reem Farouk",
+        "name": "Reem Farouk",
         "age": 40,
         "gender": "Female",
         "experience": 15,
@@ -112,7 +112,7 @@ class DoctorFirebase {
         "slotDuration": 20
       },
       {
-        "name": "Dr. Samir Nabil",
+        "name": "Samir Nabil",
         "age": 52,
         "gender": "Male",
         "experience": 28,
@@ -125,7 +125,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Rania Magdy",
+        "name": "Rania Magdy",
         "age": 33,
         "gender": "Female",
         "experience": 9,
@@ -138,7 +138,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Nader Helmy",
+        "name": "Nader Helmy",
         "age": 44,
         "gender": "Male",
         "experience": 19,
@@ -151,7 +151,7 @@ class DoctorFirebase {
         "slotDuration": 20
       },
       {
-        "name": "Dr. Yasmine Tarek",
+        "name": "Yasmine Tarek",
         "age": 37,
         "gender": "Female",
         "experience": 11,
@@ -164,7 +164,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Osama Galal",
+        "name": "Osama Galal",
         "age": 49,
         "gender": "Male",
         "experience": 23,
@@ -177,7 +177,7 @@ class DoctorFirebase {
         "slotDuration": 20
       },
       {
-        "name": "Dr. Rasha Kamal",
+        "name": "Rasha Kamal",
         "age": 35,
         "gender": "Female",
         "experience": 10,
@@ -190,7 +190,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Khaled Ezz",
+        "name": "Khaled Ezz",
         "age": 46,
         "gender": "Male",
         "experience": 20,
@@ -203,7 +203,7 @@ class DoctorFirebase {
         "slotDuration": 20
       },
       {
-        "name": "Dr. Lina Zaki",
+        "name": "Lina Zaki",
         "age": 39,
         "gender": "Female",
         "experience": 13,
@@ -216,7 +216,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Ehab Lotfy",
+        "name": "Ehab Lotfy",
         "age": 48,
         "gender": "Male",
         "experience": 21,
@@ -229,7 +229,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Farida El-Sherbiny",
+        "name": "Farida El-Sherbiny",
         "age": 41,
         "gender": "Female",
         "experience": 16,
@@ -242,7 +242,7 @@ class DoctorFirebase {
         "slotDuration": 20
       },
       {
-        "name": "Dr. Adel Shokry",
+        "name": "Adel Shokry",
         "age": 55,
         "gender": "Male",
         "experience": 30,
@@ -255,7 +255,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Inas Ghoneim",
+        "name": "Inas Ghoneim",
         "age": 43,
         "gender": "Female",
         "experience": 18,
@@ -268,7 +268,7 @@ class DoctorFirebase {
         "slotDuration": 20
       },
       {
-        "name": "Dr. Nourhan Sami",
+        "name": "Nourhan Sami",
         "age": 37,
         "gender": "Female",
         "experience": 12,
@@ -281,7 +281,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Mostafa Galal",
+        "name": "Mostafa Galal",
         "age": 50,
         "gender": "Male",
         "experience": 25,
@@ -294,7 +294,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Dalia Hisham",
+        "name": "Dalia Hisham",
         "age": 32,
         "gender": "Female",
         "experience": 8,
@@ -307,7 +307,7 @@ class DoctorFirebase {
         "slotDuration": 20
       },
       {
-        "name": "Dr. Amr Lotfy",
+        "name": "Amr Lotfy",
         "age": 46,
         "gender": "Male",
         "experience": 21,
@@ -320,7 +320,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Yasmin Fawzy",
+        "name": "Yasmin Fawzy",
         "age": 40,
         "gender": "Female",
         "experience": 15,
@@ -333,7 +333,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Sherif Kamal",
+        "name": "Sherif Kamal",
         "age": 43,
         "gender": "Male",
         "experience": 18,
@@ -346,7 +346,7 @@ class DoctorFirebase {
         "slotDuration": 20
       },
       {
-        "name": "Dr. Rana Maher",
+        "name": "Rana Maher",
         "age": 36,
         "gender": "Female",
         "experience": 11,
@@ -359,7 +359,7 @@ class DoctorFirebase {
         "slotDuration": 20
       },
       {
-        "name": "Dr. Hazem Fouad",
+        "name": "Hazem Fouad",
         "age": 38,
         "gender": "Male",
         "experience": 13,
@@ -372,7 +372,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Dina Helal",
+        "name": "Dina Helal",
         "age": 34,
         "gender": "Female",
         "experience": 10,
@@ -385,7 +385,7 @@ class DoctorFirebase {
         "slotDuration": 20
       },
       {
-        "name": "Dr. Yasser Sabry",
+        "name": "Yasser Sabry",
         "age": 45,
         "gender": "Male",
         "experience": 20,
@@ -398,7 +398,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Hadeer Lotfy",
+        "name": "Hadeer Lotfy",
         "age": 31,
         "gender": "Female",
         "experience": 6,
@@ -411,7 +411,7 @@ class DoctorFirebase {
         "slotDuration": 20
       },
       {
-        "name": "Dr. Magdy Zidan",
+        "name": "Magdy Zidan",
         "age": 53,
         "gender": "Male",
         "experience": 28,
@@ -424,7 +424,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Hanan El-Masry",
+        "name": "Hanan El-Masry",
         "age": 39,
         "gender": "Female",
         "experience": 14,
@@ -437,7 +437,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Khaled Ragab",
+        "name": "Khaled Ragab",
         "age": 42,
         "gender": "Male",
         "experience": 17,
@@ -450,7 +450,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Eman Abdelrahman",
+        "name": "Eman Abdelrahman",
         "age": 35,
         "gender": "Female",
         "experience": 9,
@@ -463,7 +463,7 @@ class DoctorFirebase {
         "slotDuration": 20
       },
       {
-        "name": "Dr. Maged Soliman",
+        "name": "Maged Soliman",
         "age": 48,
         "gender": "Male",
         "experience": 22,
@@ -476,7 +476,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Hala Tawfik",
+        "name": "Hala Tawfik",
         "age": 41,
         "gender": "Female",
         "experience": 16,
@@ -489,7 +489,7 @@ class DoctorFirebase {
         "slotDuration": 20
       },
       {
-        "name": "Dr. Ashraf Said",
+        "name": "Ashraf Said",
         "age": 44,
         "gender": "Male",
         "experience": 19,
@@ -502,7 +502,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Hiba Adel",
+        "name": "Hiba Adel",
         "age": 30,
         "gender": "Female",
         "experience": 5,
@@ -515,7 +515,7 @@ class DoctorFirebase {
         "slotDuration": 20
       },
       {
-        "name": "Dr. Sherif Abdelrahim",
+        "name": "Sherif Abdelrahim",
         "age": 51,
         "gender": "Male",
         "experience": 26,
@@ -528,7 +528,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Laila Hassan",
+        "name": "Laila Hassan",
         "age": 38,
         "gender": "Female",
         "experience": 13,
@@ -541,7 +541,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Omar Nabil",
+        "name": "Omar Nabil",
         "age": 36,
         "gender": "Male",
         "experience": 11,
@@ -554,7 +554,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Fatma Rashed",
+        "name": "Fatma Rashed",
         "age": 42,
         "gender": "Female",
         "experience": 17,
@@ -567,7 +567,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Ahmed ElSharkawy",
+        "name": "Ahmed ElSharkawy",
         "age": 40,
         "gender": "Male",
         "experience": 15,
@@ -580,7 +580,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Salma Gabr",
+        "name": "Salma Gabr",
         "age": 35,
         "gender": "Female",
         "experience": 10,
@@ -593,7 +593,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Ibrahim Hafez",
+        "name": "Ibrahim Hafez",
         "age": 47,
         "gender": "Male",
         "experience": 22,
@@ -606,7 +606,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Reem ElBaz",
+        "name": "Reem ElBaz",
         "age": 33,
         "gender": "Female",
         "experience": 8,
@@ -619,7 +619,7 @@ class DoctorFirebase {
         "slotDuration": 20
       },
       {
-        "name": "Dr. Mahmoud Khalil",
+        "name": "Mahmoud Khalil",
         "age": 39,
         "gender": "Male",
         "experience": 14,
@@ -632,7 +632,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Hana Fouad",
+        "name": "Hana Fouad",
         "age": 34,
         "gender": "Female",
         "experience": 9,
@@ -645,7 +645,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Basel Tarek",
+        "name": "Basel Tarek",
         "age": 45,
         "gender": "Male",
         "experience": 20,
@@ -658,7 +658,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Dalia Wahba",
+        "name": "Dalia Wahba",
         "age": 37,
         "gender": "Female",
         "experience": 12,
@@ -671,7 +671,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Hossam ElShenawy",
+        "name": "Hossam ElShenawy",
         "age": 43,
         "gender": "Male",
         "experience": 18,
@@ -684,7 +684,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Samar Youssef",
+        "name": "Samar Youssef",
         "age": 31,
         "gender": "Female",
         "experience": 6,
@@ -697,7 +697,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Rami Aziz",
+        "name": "Rami Aziz",
         "age": 50,
         "gender": "Male",
         "experience": 25,
@@ -710,7 +710,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Hend Refaat",
+        "name": "Hend Refaat",
         "age": 36,
         "gender": "Female",
         "experience": 11,
@@ -723,7 +723,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Mounir Saad",
+        "name": "Mounir Saad",
         "age": 48,
         "gender": "Male",
         "experience": 23,
@@ -736,7 +736,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Nada Sami",
+        "name": "Nada Sami",
         "age": 29,
         "gender": "Female",
         "experience": 4,
@@ -749,7 +749,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Tarek El Adly",
+        "name": "Tarek El Adly",
         "age": 46,
         "gender": "Male",
         "experience": 21,
@@ -762,7 +762,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Shaimaa Ghoneim",
+        "name": "Shaimaa Ghoneim",
         "age": 33,
         "gender": "Female",
         "experience": 8,
@@ -775,7 +775,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Fady Mounir",
+        "name": "Fady Mounir",
         "age": 39,
         "gender": "Male",
         "experience": 14,
@@ -788,7 +788,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Nourhan Said",
+        "name": "Nourhan Said",
         "age": 32,
         "gender": "Female",
         "experience": 7,
@@ -801,7 +801,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Sherif ElMenshawy",
+        "name": "Sherif ElMenshawy",
         "age": 44,
         "gender": "Male",
         "experience": 19,
@@ -814,7 +814,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Yasmin ElMorsy",
+        "name": "Yasmin ElMorsy",
         "age": 36,
         "gender": "Female",
         "experience": 11,
@@ -827,7 +827,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Mohamed Sabry",
+        "name": "Mohamed Sabry",
         "age": 41,
         "gender": "Male",
         "experience": 16,
@@ -840,7 +840,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Rania Abou ElMagd",
+        "name": "Rania Abou ElMagd",
         "age": 39,
         "gender": "Female",
         "experience": 14,
@@ -853,7 +853,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Hatem Abdel Aziz",
+        "name": "Hatem Abdel Aziz",
         "age": 48,
         "gender": "Male",
         "experience": 23,
@@ -866,7 +866,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Dina Osama",
+        "name": "Dina Osama",
         "age": 30,
         "gender": "Female",
         "experience": 5,
@@ -879,7 +879,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Karim ElTayeb",
+        "name": "Karim ElTayeb",
         "age": 43,
         "gender": "Male",
         "experience": 18,
@@ -892,7 +892,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Heba Mahmoud",
+        "name": "Heba Mahmoud",
         "age": 37,
         "gender": "Female",
         "experience": 12,
@@ -905,7 +905,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Youssef Kamel",
+        "name": "Youssef Kamel",
         "age": 50,
         "gender": "Male",
         "experience": 25,
@@ -918,7 +918,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Mariam Sobhy",
+        "name": "Mariam Sobhy",
         "age": 35,
         "gender": "Female",
         "experience": 10,
@@ -931,7 +931,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Hany Fouad",
+        "name": "Hany Fouad",
         "age": 46,
         "gender": "Male",
         "experience": 21,
@@ -944,7 +944,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Rasha Tamer",
+        "name": "Rasha Tamer",
         "age": 33,
         "gender": "Female",
         "experience": 8,
@@ -957,7 +957,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Adel Naguib",
+        "name": "Adel Naguib",
         "age": 42,
         "gender": "Male",
         "experience": 17,
@@ -970,7 +970,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Lamees ElDin",
+        "name": "Lamees ElDin",
         "age": 38,
         "gender": "Female",
         "experience": 13,
@@ -983,7 +983,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Seif Fathy",
+        "name": "Seif Fathy",
         "age": 34,
         "gender": "Male",
         "experience": 9,
@@ -996,7 +996,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Amal Younes",
+        "name": "Amal Younes",
         "age": 40,
         "gender": "Female",
         "experience": 15,
@@ -1009,7 +1009,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Ehab Nassar",
+        "name": "Ehab Nassar",
         "age": 45,
         "gender": "Male",
         "experience": 20,
@@ -1022,7 +1022,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Menna Sherif",
+        "name": "Menna Sherif",
         "age": 31,
         "gender": "Female",
         "experience": 6,
@@ -1035,7 +1035,7 @@ class DoctorFirebase {
         "slotDuration": 30
       },
       {
-        "name": "Dr. Basel Omar",
+        "name": "Basel Omar",
         "age": 49,
         "gender": "Male",
         "experience": 24,
@@ -1087,4 +1087,217 @@ class DoctorFirebase {
       return [];
     }
   }
+  Future<List<Map<String, dynamic>>> getDoctorsAscending() async {
+    try {
+      final QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('doctors')
+          .orderBy('name', descending: false)
+          .get();
+
+      return snapshot.docs.map((doc) => {
+        'name': doc['name'],
+        'age': doc['age'],
+        'gender': doc['gender'],
+        'experience': doc['experience'],
+        'bio': doc['bio'],
+        'image': doc['image'],
+        'category': doc['category'],
+        'workingDays': List<String>.from(doc['workingDays']),
+        'startHour': doc['startHour'],
+        'endHour': doc['endHour'],
+        'slotDuration': doc['slotDuration'],
+      }).toList();
+    } catch (e) {
+      print('Error getting doctors (ascending): $e');
+      return [];
+    }
+  }
+  Future<List<Map<String, dynamic>>> getDoctorsDescending() async {
+    try {
+      final QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('doctors')
+          .orderBy('name', descending: true)
+          .get();
+
+      return snapshot.docs.map((doc) => {
+        'name': doc['name'],
+        'age': doc['age'],
+        'gender': doc['gender'],
+        'experience': doc['experience'],
+        'bio': doc['bio'],
+        'image': doc['image'],
+        'category': doc['category'],
+        'workingDays': List<String>.from(doc['workingDays']),
+        'startHour': doc['startHour'],
+        'endHour': doc['endHour'],
+        'slotDuration': doc['slotDuration'],
+      }).toList();
+    } catch (e) {
+      print('Error getting doctors: $e');
+      return [];
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getDoctorsExperience() async {
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('doctors')
+          .orderBy('experience', descending: true)
+          .get();
+
+      return snapshot.docs.map((doc) => {
+        'name': doc['name'],
+        'age': doc['age'],
+        'gender': doc['gender'],
+        'experience': doc['experience'],
+        'bio': doc['bio'],
+        'image': doc['image'],
+        'category': doc['category'],
+        'workingDays': List<String>.from(doc['workingDays']),
+        'startHour': doc['startHour'],
+        'endHour': doc['endHour'],
+        'slotDuration': doc['slotDuration'],
+      }).toList();
+    } catch (e) {
+      print('Error sorting by experience: $e');
+      return [];
+    }
+  }
+
+
+  Future<List<Map<String, dynamic>>> getDoctorsAgeDescending() async {
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('doctors')
+          .orderBy('age', descending: true)
+          .get();
+
+      return snapshot.docs.map((doc) => {
+        'name': doc['name'],
+        'age': doc['age'],
+        'gender': doc['gender'],
+        'experience': doc['experience'],
+        'bio': doc['bio'],
+        'image': doc['image'],
+        'category': doc['category'],
+        'workingDays': List<String>.from(doc['workingDays']),
+        'startHour': doc['startHour'],
+        'endHour': doc['endHour'],
+        'slotDuration': doc['slotDuration'],
+      }).toList();
+    } catch (e) {
+      print('Error sorting by age: $e');
+      return [];
+    }
+  }
+  Future<List<Map<String, dynamic>>> getDoctorsAgeAscending() async {
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('doctors')
+          .orderBy('age', descending: false)
+          .get();
+
+      return snapshot.docs.map((doc) => {
+        'name': doc['name'],
+        'age': doc['age'],
+        'gender': doc['gender'],
+        'experience': doc['experience'],
+        'bio': doc['bio'],
+        'image': doc['image'],
+        'category': doc['category'],
+        'workingDays': List<String>.from(doc['workingDays']),
+        'startHour': doc['startHour'],
+        'endHour': doc['endHour'],
+        'slotDuration': doc['slotDuration'],
+      }).toList();
+    } catch (e) {
+      print('Error sorting by age: $e');
+      return [];
+    }
+  }
+  Future<List<Map<String, dynamic>>> getFemaleDoctors() async {
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('doctors')
+          .where('gender', isEqualTo: 'Female')
+          .get();
+
+      return snapshot.docs.map((doc) => {
+        'name': doc['name'],
+        'age': doc['age'],
+        'gender': doc['gender'],
+        'experience': doc['experience'],
+        'bio': doc['bio'],
+        'image': doc['image'],
+        'category': doc['category'],
+        'workingDays': List<String>.from(doc['workingDays']),
+        'startHour': doc['startHour'],
+        'endHour': doc['endHour'],
+        'slotDuration': doc['slotDuration'],
+      }).toList();
+    } catch (e) {
+      print('Error fetching female doctors: $e');
+      return [];
+    }
+  }
+  Future<List<Map<String, dynamic>>> getMaleDoctors() async {
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('doctors')
+          .where('gender', isEqualTo: 'Male')
+          .get();
+
+      return snapshot.docs.map((doc) => {
+        'name': doc['name'],
+        'age': doc['age'],
+        'gender': doc['gender'],
+        'experience': doc['experience'],
+        'bio': doc['bio'],
+        'image': doc['image'],
+        'category': doc['category'],
+        'workingDays': List<String>.from(doc['workingDays']),
+        'startHour': doc['startHour'],
+        'endHour': doc['endHour'],
+        'slotDuration': doc['slotDuration'],
+      }).toList();
+    } catch (e) {
+      print('Error fetching male doctors: $e');
+      return [];
+    }
+  }
+  Future<List<Map<String, dynamic>>> getDoctorByName({String? startsWith}) async {
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('doctors')
+          .get();
+
+      List<Map<String, dynamic>> doctorList = snapshot.docs.map((doc) => {
+        'name': doc['name'],
+        'age': doc['age'],
+        'gender': doc['gender'],
+        'experience': doc['experience'],
+        'bio': doc['bio'],
+        'image': doc['image'],
+        'category': doc['category'],
+        'workingDays': List<String>.from(doc['workingDays']),
+        'startHour': doc['startHour'],
+        'endHour': doc['endHour'],
+        'slotDuration': doc['slotDuration'],
+      }).toList();
+
+      if (startsWith != null && startsWith.isNotEmpty) {
+        final lowerPrefix = startsWith.toLowerCase();
+        doctorList = doctorList
+            .where((doctor) =>
+            doctor['name'].toString().toLowerCase().startsWith(lowerPrefix))
+            .toList();
+      }
+
+      return doctorList;
+    } catch (e) {
+      print('Error fetching doctors by name: $e');
+      return [];
+    }
+  }
+
 }

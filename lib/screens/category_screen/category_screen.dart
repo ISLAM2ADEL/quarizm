@@ -13,11 +13,17 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
+  final textController=TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<CategoryCubit>(context).getCategories();
+  }
   @override
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
-    BlocProvider.of<CategoryCubit>(context).getCategories();
     return BlocConsumer<CategoryCubit, CategoryState>(
   listener: (context, state) {
     if (state is CategoryFailure) {
@@ -42,6 +48,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         ),
         leading: IconButton(
           onPressed: (){
+            context.read<CategoryCubit>().searchCategories("");
             Navigator.of(context).pop();
           },
           icon: Icon(Icons.arrow_back_ios_new_outlined,color: Colors.black,),
@@ -52,7 +59,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         child: ListView(
           children: [
             SizedBox(height: height*.03,),
-            SearchForm(hintText: "Search Category..."),
+            SearchForm(hintText: "Search Category...",controller: textController,),
             SizedBox(height: height*.04,),
             BlocBuilder<CategoryCubit, CategoryState>(
               builder: (context, state) {

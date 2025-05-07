@@ -64,13 +64,14 @@ class DoctorBoxes extends StatelessWidget {
 
           SizedBox(
             width: width*.37,
-            child: Text(drName,style: TextStyle(
+            child: Text("DR. $drName",style: TextStyle(
               color: Colors.black,
               fontSize: 18,
               fontWeight: FontWeight.bold,
               overflow: TextOverflow.ellipsis,
             ),
               maxLines: 1,
+              textAlign: TextAlign.center,
             ),
           ),
           Text(drCategory,style: TextStyle(

@@ -61,7 +61,34 @@ class CategoryFirebase {
       print('Error getting categories: $e');
       return [];
     }
+
   }
 
+  Future<List<Map<String, dynamic>>> getCategoryByName({String? startsWith}) async {
+    try {
+      final QuerySnapshot snapshot =
+      await FirebaseFirestore.instance.collection('categories').get();
+
+      List<Map<String, dynamic>> categoryList = snapshot.docs
+          .map((doc) => {
+        'name': doc['name'],
+        'image': doc['image'],
+      })
+          .toList();
+
+      if (startsWith != null && startsWith.isNotEmpty) {
+        final lowerPrefix = startsWith.toLowerCase();
+        categoryList = categoryList
+            .where((category) =>
+            category['name'].toString().toLowerCase().startsWith(lowerPrefix))
+            .toList();
+      }
+
+      return categoryList;
+    } catch (e) {
+      print('Error getting categories: $e');
+      return [];
+    }
+  }
 
 }
