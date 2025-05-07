@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quarizm/cubit/appointment_cubit/appointment_cubit.dart';
 import 'package:quarizm/cubit/bottom_cubit/bottom_cubit.dart';
 import 'package:quarizm/cubit/category_cubit/category_cubit.dart';
 import 'package:quarizm/cubit/doctor_cubit/doctor_cubit.dart';
@@ -43,6 +44,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => FavoriteCubit(),
+        ),
+        BlocProvider(
+          create: (context) => AppointmentCubit(),
         ),
       ],
       child: MaterialApp(

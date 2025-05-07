@@ -15,7 +15,6 @@ class FavoriteFirebase {
     final DocumentReference userDoc =
     _firestore.collection("favorites").doc(userEmail);
 
-    // إضافة الدكتور إلى قائمة "doctors" بدون تكرار
     await userDoc.set({
       "doctors": FieldValue.arrayUnion([doctorName]),
     }, SetOptions(merge: true));

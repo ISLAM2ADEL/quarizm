@@ -140,7 +140,17 @@ class DoctorScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                customContainers(context,height, width, text: "Book Appointment", color: Colors.blueAccent),
+                customContainers(context,
+                    height,
+                    width,
+                    text: "Book Appointment",
+                    color: Colors.blueAccent,
+                    doctorName: doctor[0]['name'],
+                    startHour: doctor[0]['startHour'],
+                    endHour: doctor[0]['endHour'],
+                    timeSlots: doctor[0]['slotDuration'],
+                    workingDays: doctor[0]['workingDays']
+                ),
                 customContainers(context,height, width,text: "Add to Favourites", color: Colors.redAccent.shade400),
               ],
             ),
@@ -164,6 +174,11 @@ class DoctorScreen extends StatelessWidget {
   Widget customContainers(BuildContext context,double height, double width,{
     required String text,
     required Color color,
+    String? doctorName,
+    String? startHour,
+    String? endHour,
+    int? timeSlots,
+    List<String>? workingDays,
   }) {
     return GestureDetector(
       child: Container(
@@ -183,9 +198,20 @@ class DoctorScreen extends StatelessWidget {
         ),
 ),
       onTap: (){
+        print(doctorName);
+        print(startHour);
+        print(endHour);
+        print(timeSlots);
+        print(workingDays);
         text=="Add to Favourites"?context.read<FavoriteCubit>().addFavorite(drName):
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => AppointmentScreen()),
+          MaterialPageRoute(builder: (context) => AppointmentScreen(
+            doctorName: doctorName,
+            startHour: startHour,
+            endHour: endHour,
+            timeSlots: timeSlots,
+            workingDays: workingDays,
+          )),
         );
       },
     );
