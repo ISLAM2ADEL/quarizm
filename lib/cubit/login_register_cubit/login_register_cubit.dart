@@ -76,4 +76,13 @@ class LoginRegisterCubit extends Cubit<LoginRegisterState> {
       emit(ForgetPasswordFailure(errorMessage: e.toString().replaceAll("Exception: ", "")));
     }
   }
+  void signInWithGoogle() async {
+    emit(GoogleLoading());
+    try {
+      await AuthFirebase().signInWithGoogle();
+      emit(GoogleSuccess());
+    } catch (e) {
+      emit(GoogleFailure(errorMessage: e.toString().replaceAll("Exception: ", "")));
+    }
+  }
 }

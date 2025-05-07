@@ -245,31 +245,34 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Container loginContainer(double height, double width, {
-    required String text,
-    required String image,
-  }) {
-    return Container(
-      height: height * .06,
-      width: width * .9,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset("$path$image", width: 20),
-          Text(
-            " $text",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+  Widget loginContainer(double height, double width,
+      {required String text, required String image}) {
+    return GestureDetector(
+      child: Container(
+        height: height * .06,
+        width: width * .9,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.grey),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset("$path$image", width: 20),
+            Text(
+              " $text",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
+      onTap: (){
+        context.read<LoginRegisterCubit>().signInWithGoogle();
+      },
     );
   }
 }

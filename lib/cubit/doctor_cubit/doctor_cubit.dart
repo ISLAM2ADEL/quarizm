@@ -10,6 +10,7 @@ class DoctorCubit extends Cubit<DoctorState> {
   int doctorsNumber=10;
   int doctorsCategoryNumber=0;
   List<Map<String, dynamic>> doctors = [];
+  List<Map<String, dynamic>> doctorDetails = [];
 
   String searchQuery = '';
   bool isSearching = false;
@@ -132,6 +133,15 @@ class DoctorCubit extends Cubit<DoctorState> {
       emit(DoctorSuccess());
     } catch (e) {
       emit(DoctorFailure(errorMessage: e.toString().replaceAll("Exception: ", "")));
+    }
+  }
+  Future<void> getDoctorsByName(String name) async {
+    emit(DoctorByNameLoading());
+    try {
+      doctorDetails = await DoctorFirebase().getDoctorsByName(name);
+      emit(DoctorByNameSuccess());
+    } catch (e) {
+      emit(DoctorByNameFailure(errorMessage: e.toString().replaceAll("Exception: ", "")));
     }
   }
 }

@@ -16,4 +16,10 @@ final class DoctorCategoryFailure extends DoctorState {
   final String errorMessage;
   DoctorCategoryFailure({required this.errorMessage});
 }
+final class DoctorByNameLoading extends DoctorState {}
+final class DoctorByNameSuccess extends DoctorState {}
+final class DoctorByNameFailure extends DoctorState {
+  final String errorMessage;
+  DoctorByNameFailure({required this.errorMessage});
+}
 

@@ -26,3 +26,9 @@ final class ForgetPasswordFailure extends LoginRegisterState {
   final String errorMessage;
   ForgetPasswordFailure({required this.errorMessage});
 }
+final class GoogleSuccess extends LoginRegisterState {}
+final class GoogleLoading extends LoginRegisterState {}
+final class GoogleFailure extends LoginRegisterState {
+  final String errorMessage;
+  GoogleFailure({required this.errorMessage});
+}
