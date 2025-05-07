@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quarizm/const.dart';
+import 'package:quarizm/screens/category_doctors_screen/category_doctor_screen.dart';
 
 class CategoryBoxes extends StatelessWidget {
   const CategoryBoxes({
@@ -64,7 +65,9 @@ class CategoryBoxes extends StatelessWidget {
         ],
       ),
       onTap: (){
-        print(title);
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => CategoryDoctorScreen(categoryTitle: title)),
+        );
       },
     );
   }

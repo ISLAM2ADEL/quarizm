@@ -1299,5 +1299,29 @@ class DoctorFirebase {
       return [];
     }
   }
+  Future<List<Map<String, dynamic>>> getDoctorsByCategory(String title) async {
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('doctors')
+          .where('category', isEqualTo: title)
+          .get();
 
+      return snapshot.docs.map((doc) => {
+        'name': doc['name'],
+        'age': doc['age'],
+        'gender': doc['gender'],
+        'experience': doc['experience'],
+        'bio': doc['bio'],
+        'image': doc['image'],
+        'category': doc['category'],
+        'workingDays': List<String>.from(doc['workingDays']),
+        'startHour': doc['startHour'],
+        'endHour': doc['endHour'],
+        'slotDuration': doc['slotDuration'],
+      }).toList();
+    } catch (e) {
+      print('Error fetching male doctors: $e');
+      return [];
+    }
+  }
 }

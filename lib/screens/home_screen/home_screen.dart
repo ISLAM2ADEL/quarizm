@@ -24,7 +24,6 @@ class _HomeScreenState extends State<HomeScreen> {
   late PageController _pageController;
   int _currentPage = 0;
   @override
-  @override
   void initState() {
     super.initState();
     _pageController = PageController();
@@ -76,7 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
     bottomNavigationBar: BottomIconBar(height: height),
       backgroundColor: Colors.white,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: width*.07,vertical: height*.05),
+        padding: EdgeInsets.only(
+            left:  width*.07,
+            right: width*.07,
+            top: height*.03),
         child: ListView(
           children: [
             Row(
@@ -142,6 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               },
             ),
+            SizedBox(height: height*.03,),
           ],
         ),
       ),
@@ -171,8 +174,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
   }
 
-  Row showMoreOrAll(double height, double width) {
-    return Row(
+  Widget showMoreOrAll(double height, double width) {
+    return context.read<DoctorCubit>().isSearching?SizedBox():Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         showContainer(height, width,text: "Show More"),
@@ -181,8 +184,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
   }
 
-  GestureDetector showLessContainer(double height, double width, BuildContext context) {
-    return GestureDetector(
+  Widget showLessContainer(double height, double width, BuildContext context) {
+    return context.read<DoctorCubit>().isSearching?SizedBox():GestureDetector(
                       child: Container(
                         height: height*.08,
                         width: width*.9,

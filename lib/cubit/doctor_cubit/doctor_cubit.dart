@@ -8,6 +8,7 @@ class DoctorCubit extends Cubit<DoctorState> {
   DoctorCubit() : super(DoctorInitial());
   bool showAllDoctors=false;
   int doctorsNumber=10;
+  int doctorsCategoryNumber=0;
   List<Map<String, dynamic>> doctors = [];
 
   String searchQuery = '';
@@ -49,6 +50,18 @@ class DoctorCubit extends Cubit<DoctorState> {
     showAllDoctors=false;
     doctorsNumber=10;
     emit(DoctorSuccess());
+  }
+
+  Future<void> getDoctorsByCategory(String category) async {
+    emit(DoctorCategoryLoading());
+
+    try {
+      doctors = await DoctorFirebase().getDoctorsByCategory(category);
+      doctorsCategoryNumber=doctors.length;
+      emit(DoctorCategorySuccess());
+    } catch (e) {
+      emit(DoctorCategoryFailure(errorMessage: e.toString().replaceAll("Exception: ", "")));
+    }
   }
 
   Future<void> getDoctorsAscending() async {
