@@ -198,11 +198,6 @@ class DoctorScreen extends StatelessWidget {
         ),
 ),
       onTap: (){
-        print(doctorName);
-        print(startHour);
-        print(endHour);
-        print(timeSlots);
-        print(workingDays);
         text=="Add to Favourites"?context.read<FavoriteCubit>().addFavorite(drName):
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => AppointmentScreen(

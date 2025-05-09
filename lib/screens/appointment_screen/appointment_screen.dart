@@ -12,6 +12,10 @@ class AppointmentScreen extends StatelessWidget {
   final int? timeSlots;
   final List<String>? workingDays;
 
+  final bool scheduling;
+  final String pastDay;
+  final String pastTime;
+
   const AppointmentScreen({
     super.key,
     required this.doctorName,
@@ -19,6 +23,9 @@ class AppointmentScreen extends StatelessWidget {
     required this.endHour,
     required this.timeSlots,
     required this.workingDays,
+    this.scheduling=false,
+    this.pastDay="",
+    this.pastTime="",
   });
 
 
@@ -48,10 +55,10 @@ class AppointmentScreen extends StatelessWidget {
   }
 
   List<MapEntry<String, DateTime>> getDoctorWorkingDaysWithDates() {
-    final weekDaysWithDates = getWeekDaysWithDates();
+    final upcomingDays = getNext7Days();
     if (workingDays == null) return [];
 
-    return weekDaysWithDates.entries
+    return upcomingDays.entries
         .where((entry) => workingDays!.contains(entry.key))
         .toList();
   }
@@ -70,11 +77,23 @@ class AppointmentScreen extends StatelessWidget {
     return slots;
   }
 
+  Map<String, DateTime> getNext7Days() {
+    final now = DateTime.now();
+    final Map<String, DateTime> days = {};
+
+    for (int i = 1; i <= 7; i++) {
+      final day = now.add(Duration(days: i));
+      final weekdayName = getWeekdayName(day.weekday);
+      days[weekdayName] = day;
+    }
+
+    return days;
+  }
 
   @override
   Widget build(BuildContext context) {
     final timeSlotsList = generateTimeSlots(startHour!, endHour!, timeSlots!);
-    String selectedSlot = "";
+    String selectedSlot = context.read<AppointmentCubit>().time;
     final workingDays = getDoctorWorkingDaysWithDates();
     final height = MediaQuery
         .of(context)
@@ -137,7 +156,7 @@ class AppointmentScreen extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             SizedBox(
-              height: height*.23,
+                height:workingDays.length==3? height*.35:height*.23,
               child: ListView(
                 physics: const NeverScrollableScrollPhysics(),
                 children: List.generate(
@@ -145,6 +164,7 @@ class AppointmentScreen extends StatelessWidget {
                       (index) {
                     final entry = workingDays[index];
                     return CustomWorkingDay(
+                      doctorName: doctorName!,
                       dayName: entry.key,
                       date: entry.value,
                     );
@@ -188,6 +208,7 @@ class AppointmentScreen extends StatelessWidget {
                 String day = DateFormat('EEEE, dd MMMM yyyy')
                     .format(context.read<AppointmentCubit>().selectedDate!); // ! للتأكيد إنه مش null
                 String time = context.read<AppointmentCubit>().time;
+                scheduling?context.read<AppointmentCubit>().scheduleAppointment(doctorName!,pastDay ,pastTime,day, time):
                 context.read<AppointmentCubit>().bookAppointment(doctorName!, day, time);
               },
             ),

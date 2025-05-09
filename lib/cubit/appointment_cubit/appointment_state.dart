@@ -12,3 +12,9 @@ final class AppointmentFailure extends AppointmentState {
   final String errorMessage;
   AppointmentFailure({required this.errorMessage});
 }
+final class SlotsLoading extends AppointmentState {}
+final class SlotsSuccess extends AppointmentState {}
+final class SlotsFailure extends AppointmentState {
+  final String errorMessage;
+  SlotsFailure({required this.errorMessage});
+}

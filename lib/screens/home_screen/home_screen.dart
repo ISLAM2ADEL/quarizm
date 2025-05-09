@@ -10,7 +10,6 @@ import 'package:quarizm/custom_widgets/category_boxes.dart';
 import 'package:quarizm/custom_widgets/doctor_boxes.dart';
 import 'package:quarizm/custom_widgets/search_form.dart';
 import 'package:quarizm/firebase/auth_firebase/auth_firebase.dart';
-import 'package:quarizm/firebase/doctor_firebase/doctor_firebase.dart';
 import 'package:quarizm/screens/category_screen/category_screen.dart';
 import 'package:quarizm/screens/login_screen/login_screen.dart';
 
@@ -91,15 +90,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                 ),),
-                GestureDetector(
-                  onTap: (){
-                    AuthFirebase().signOut();
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                          (route) => false,
-                    );
-                  },
-                    child: Icon(Icons.notifications_none_outlined)),
               ],
             ),
             SizedBox(height: height*.03,),

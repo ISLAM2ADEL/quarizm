@@ -6,11 +6,13 @@ import 'package:quarizm/cubit/appointment_cubit/appointment_cubit.dart';
 class CustomWorkingDay extends StatelessWidget {
   final String dayName;
   final DateTime date;
+  final String doctorName;
 
   const CustomWorkingDay({
     super.key,
     required this.dayName,
     required this.date,
+    required this.doctorName,
   });
 
   @override
@@ -58,6 +60,7 @@ class CustomWorkingDay extends StatelessWidget {
             ),
               onTap: () {
                 cubit.changeDay(date);
+                cubit.setSlots(doctorName,"$dayName, ${DateFormat('dd MMMM yyyy').format(date)}");
             },
           );
   },

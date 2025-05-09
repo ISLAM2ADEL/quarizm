@@ -25,26 +25,7 @@ class ManagerCubit extends Cubit<ManagerState> {
     emit(DateCancelLoading());
 
     try {
-      String cleanedDay = day.split(',')[1].trim(); // "11 May 2025"
-
-      String fullDateTimeString = "$cleanedDay $time"; // "11 May 2025 14:30"
-
-      DateFormat format = DateFormat("d MMM yyyy HH:mm");
-
-      DateTime appointmentDateTime = format.parse(fullDateTimeString);
-
-      final now = DateTime.now();
-      final difference = appointmentDateTime.difference(now);
-      if (appointmentDateTime.isBefore(now)) {
-        emit(DateCancelFailure(errorMessage: "You can't cancel a past appointment."));
-        getDates();
-        return;
-      }
-
-      if (difference.inMinutes < 60) {
-        emit(DateCancelFailure(errorMessage: "You can only cancel at least 1 hour before the appointment."));
-        return;
-      }
+      emit(DateCancelLoading());
       await DateFirebase().cancelAppointment(day, time);
       emit(DateCancelSuccess());
       getDates();

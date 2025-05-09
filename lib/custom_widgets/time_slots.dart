@@ -19,30 +19,27 @@ class TimeSlots extends StatelessWidget {
     return Wrap(
       spacing: 12,
       runSpacing: 12,
-      children: slots.map((slot) {
-        final isSelected = slot == selectedSlot;
+      children: slots.where((slot) => !context.read<AppointmentCubit>().bookedTimes.contains(slot)).map((slot) {
         return BlocBuilder<AppointmentCubit, AppointmentState>(
           builder: (context, state) {
             final cubit = context.read<AppointmentCubit>();
-            final  doctor = cubit.time;
+            final doctorTime = cubit.time;
             return GestureDetector(
               onTap: () {
-                print(slot);
                 cubit.changeTime(slot);
                 onSlotSelected(slot);
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16, vertical: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
-                  color: doctor==slot? Colors.greenAccent.shade100 : Colors.white,
+                  color: doctorTime == slot ? Colors.greenAccent.shade100 : Colors.white,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: Colors.grey),
                 ),
                 child: Text(
                   slot,
                   style: TextStyle(
-                    color: isSelected ? Colors.white : Colors.black,
+                    color: Colors.black,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
