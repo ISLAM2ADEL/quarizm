@@ -26,20 +26,21 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.white,
       body: BlocListener<LoginRegisterCubit, LoginRegisterState>(
         listener: (context, state) {
-          if (state is LoginFailure) {
+          if (state is LoginFailure || state is GoogleFailure) {
+            final errorMessage = (state as dynamic).errorMessage;
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.errorMessage),
+                content: Text(errorMessage),
                 backgroundColor: Colors.red,
               ),
             );
-          } else if (state is LoginSuccess) {
+          } else if (state is LoginSuccess || state is GoogleSuccess) {
             Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => HomeScreen()),
             );
           }
         },
-  child: Padding(
+          child: Padding(
         padding: EdgeInsets.only(
           top: height * .05,
           left: width*.05,
