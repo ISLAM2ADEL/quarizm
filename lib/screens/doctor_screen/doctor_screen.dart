@@ -256,8 +256,8 @@ class DoctorScreen extends StatelessWidget {
                         SizedBox(
                           width: width*.2,
                           child: Text(text,style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
                             color: Colors.black,
                             overflow: TextOverflow.ellipsis,
                           ),
