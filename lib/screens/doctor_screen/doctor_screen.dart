@@ -182,10 +182,12 @@ class DoctorScreen extends StatelessWidget {
         ),
         child: Center(
           child: Text(text, style: TextStyle(
+            overflow: TextOverflow.ellipsis,
             fontSize: 14,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
+            maxLines: 1,
           ),
         ),
 ),
