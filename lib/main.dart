@@ -8,6 +8,7 @@ import 'package:quarizm/cubit/category_cubit/category_cubit.dart';
 import 'package:quarizm/cubit/doctor_cubit/doctor_cubit.dart';
 import 'package:quarizm/cubit/favorite_cubit/favorite_cubit.dart';
 import 'package:quarizm/cubit/login_register_cubit/login_register_cubit.dart';
+import 'package:quarizm/cubit/manager_cubit/manger_cubit.dart';
 import 'package:quarizm/cubit/onboarding_cubit/onboarding_cubit.dart';
 import 'package:quarizm/screens/home_screen/home_screen.dart';
 import 'package:quarizm/screens/onboarding_screen/onboarding_screens.dart';
@@ -47,6 +48,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => AppointmentCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ManagerCubit(),
         ),
       ],
       child: MaterialApp(

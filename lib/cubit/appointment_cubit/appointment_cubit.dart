@@ -6,11 +6,12 @@ part 'appointment_state.dart';
 
 class AppointmentCubit extends Cubit<AppointmentState> {
   AppointmentCubit() : super(AppointmentInitial());
-  String day="";
+  DateTime? selectedDate;
   String time="";
-  void changeDay(String dayChosen){
-   day = dayChosen;
-   emit(DayChangeSuccess());
+
+  void changeDay(DateTime date) {
+    selectedDate = date;
+    emit(DayChangeSuccess());
   }
   void changeTime(String timeChosen){
     time = timeChosen;
@@ -26,4 +27,5 @@ class AppointmentCubit extends Cubit<AppointmentState> {
       emit(AppointmentFailure(errorMessage: e.toString().replaceAll("Exception: ", "")));
     }
   }
+
 }

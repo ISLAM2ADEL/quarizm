@@ -24,7 +24,7 @@ class CustomWorkingDay extends StatelessWidget {
           BlocBuilder<AppointmentCubit, AppointmentState>(
   builder: (context, state) {
     final cubit = context.read<AppointmentCubit>();
-    final doctor = cubit.day;
+    final dateChosen=cubit.selectedDate;
     return GestureDetector(
             child: Container(
               height: height * .075,
@@ -32,7 +32,7 @@ class CustomWorkingDay extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(color: Colors.blue),
-                color: doctor==dayName?Colors.greenAccent.shade100:Colors.transparent,
+                color: dateChosen==date ?Colors.greenAccent.shade100:Colors.transparent,
               ),
               child: Padding(
                 padding:  EdgeInsets.only(left:width* .05),
@@ -56,8 +56,8 @@ class CustomWorkingDay extends StatelessWidget {
                 ),
               ),
             ),
-            onTap: () {
-              cubit.changeDay(dayName);;
+              onTap: () {
+                cubit.changeDay(date);
             },
           );
   },

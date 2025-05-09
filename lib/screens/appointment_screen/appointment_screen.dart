@@ -35,7 +35,6 @@ class AppointmentScreen extends StatelessWidget {
     return names[weekday]!;
   }
 
-  // كل أيام الأسبوع بالتواريخ
   Map<String, DateTime> getWeekDaysWithDates() {
     final now = DateTime.now();
     final startOfWeek = now.subtract(Duration(days: now.weekday - 1)); // Monday
@@ -185,10 +184,11 @@ class AppointmentScreen extends StatelessWidget {
                   ),
               ),
               ),
-              onTap: (){
-                String day = context.read<AppointmentCubit>().day;
+              onTap: () {
+                String day = DateFormat('EEEE, dd MMMM yyyy')
+                    .format(context.read<AppointmentCubit>().selectedDate!); // ! للتأكيد إنه مش null
                 String time = context.read<AppointmentCubit>().time;
-                context.read<AppointmentCubit>().bookAppointment(doctorName!,day, time);
+                context.read<AppointmentCubit>().bookAppointment(doctorName!, day, time);
               },
             ),
           ],
