@@ -200,15 +200,18 @@ class AppointmentManagementScreen extends StatelessWidget {
               children: [
                 Text(
                   "DR: $drName",
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  style: const TextStyle(overflow: TextOverflow.ellipsis,fontSize: 18, fontWeight: FontWeight.w500),
+                  maxLines: 1,
                 ),
                 Text(
                   "Day: $dateDay",
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  style: const TextStyle(overflow: TextOverflow.ellipsis,fontSize: 18, fontWeight: FontWeight.w500),
+                  maxLines: 1,
                 ),
                 Text(
                   "Date: $dateTime",
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  style: const TextStyle(overflow: TextOverflow.ellipsis,fontSize: 18, fontWeight: FontWeight.w500),
+                  maxLines: 1,
                 ),
               ],
             ),
