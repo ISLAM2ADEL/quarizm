@@ -286,8 +286,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ],
         ),
       ),
+
       onTap: (){
-        context.read<LoginRegisterCubit>().signInWithGoogle();
+        text=="Sign Up with Google"?context.read<LoginRegisterCubit>().signInWithGoogle():
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Coming Soon"),
+            backgroundColor: Colors.blue,
+            duration: Duration(seconds: 2),
+          ),
+        );
       },
     );
   }

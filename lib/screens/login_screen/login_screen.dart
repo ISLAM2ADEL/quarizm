@@ -270,9 +270,16 @@ class _LoginScreenState extends State<LoginScreen> {
           ],
         ),
       ),
-      onTap: (){
-        context.read<LoginRegisterCubit>().signInWithGoogle();
-      },
+        onTap: () {
+          text == "Sign In with Google"? context.read<LoginRegisterCubit>().signInWithGoogle():
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Coming Soon"),
+              backgroundColor: Colors.blue,
+              duration: Duration(seconds: 2),
+            ),
+          );
+        },
     );
   }
 }

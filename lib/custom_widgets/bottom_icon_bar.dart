@@ -52,15 +52,6 @@ class BottomIconBar extends StatelessWidget {
                     );
                   },
                   child: Icon(Icons.date_range, size: 35,color: cubit.bottomPage=="date"?Colors.black:Colors.grey,)),
-              GestureDetector(
-                  onTap: () {
-                    cubit.changeBottomPage("profile");
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => AppointmentManagementScreen()),
-                          (route) => false,
-                    );
-                  },
-                  child: Icon(CupertinoIcons.person_circle_fill, size: 35,color: cubit.bottomPage=="profile"?Colors.black:Colors.grey,)),
             ],
           );
         },

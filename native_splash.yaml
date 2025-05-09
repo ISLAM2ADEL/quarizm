@@ -4,10 +4,8 @@ flutter_native_splash:
   web: false
 
   color: "#FAFAD2"
-  image: "assets/images/icon.png"
 
   android_12:
-    image: "assets/images/playstore.png"
     color: "#FAFAD2"
 
 

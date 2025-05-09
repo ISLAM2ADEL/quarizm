@@ -90,6 +90,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                 ),),
+                GestureDetector(
+                  onTap: (){
+                    AuthFirebase().signOut();
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                          (route) => false,
+                    );
+                  },
+                    child: Icon(Icons.logout,size: 30,color: Colors.red,))
               ],
             ),
             SizedBox(height: height*.03,),
