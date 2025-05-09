@@ -62,6 +62,8 @@ class LoginRegisterCubit extends Cubit<LoginRegisterState> {
     try {
       await AuthFirebase().signInUser(email, password);
       emit(LoginSuccess());
+      emailSignController.clear();
+      passwordSignController.clear();
     } catch (e) {
       emit(LoginFailure(errorMessage: e.toString().replaceAll("Exception: ", "")));
     }
