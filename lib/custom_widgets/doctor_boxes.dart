@@ -92,9 +92,8 @@ class DoctorBoxes extends StatelessWidget {
         ),
       ),
       onTap: (){
-        Navigator.of(context).pushAndRemoveUntil(
+        Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => DoctorScreen(drName: drName)),
-              (route) => false,
         );
       },
     );

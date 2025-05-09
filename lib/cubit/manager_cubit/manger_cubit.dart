@@ -23,9 +23,7 @@ class ManagerCubit extends Cubit<ManagerState> {
 
   Future<void> cancelAppointment(String day, String time) async {
     emit(DateCancelLoading());
-
     try {
-      emit(DateCancelLoading());
       await DateFirebase().cancelAppointment(day, time);
       emit(DateCancelSuccess());
       getDates();

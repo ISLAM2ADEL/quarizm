@@ -24,10 +24,8 @@ class ScheduleScreen extends StatelessWidget {
             centerTitle:true ,
             leading: GestureDetector(
                 onTap: (){
-                  Navigator.of(context).pushAndRemoveUntil(
+                  Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => AppointmentManagementScreen()),
-                        (route) => false,
-
                   );
                 },
                 child: Icon(Icons.arrow_back)),

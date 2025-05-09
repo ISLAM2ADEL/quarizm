@@ -26,14 +26,6 @@ class DoctorScreen extends StatelessWidget {
         ),
       );
     }
-    else if (state is FavoriteSuccess) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Added to Favourites"),
-            backgroundColor: Colors.green,
-          )
-      );
-    }
   },
   builder: (context, state) {
     return Scaffold(
@@ -198,7 +190,7 @@ class DoctorScreen extends StatelessWidget {
         ),
 ),
       onTap: (){
-        text=="Add to Favourites"?context.read<FavoriteCubit>().addFavorite(drName):
+        text=="Add to Favourites"?context.read<FavoriteCubit>().addFavorite(drName,context):
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => AppointmentScreen(
             doctorName: doctorName,
