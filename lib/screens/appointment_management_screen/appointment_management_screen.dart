@@ -183,7 +183,7 @@ class AppointmentManagementScreen extends StatelessWidget {
         required bool showActions,
       }) {
     return Container(
-      height: height * .17,
+      height: height * .2,
       width: width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -194,24 +194,21 @@ class AppointmentManagementScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Text(
-              "DR: $drName",
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            padding: EdgeInsets.only(left: 10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
+                  "DR: $drName",
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                ),
+                Text(
                   "Day: $dateDay",
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                 ),
                 Text(
                   "Date: $dateTime",
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                 ),
               ],
             ),
