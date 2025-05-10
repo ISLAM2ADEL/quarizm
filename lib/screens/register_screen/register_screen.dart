@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quarizm/const.dart';
 import 'package:quarizm/cubit/login_register_cubit/login_register_cubit.dart';
 import 'package:quarizm/custom_widgets/custom_text_form.dart';
+import 'package:quarizm/screens/home_screen/home_screen.dart';
 import 'package:quarizm/screens/login_screen/login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -39,6 +40,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 backgroundColor: Colors.green,
               ),
             );
+            if (state is GoogleFailure) {
+              final errorMessage = (state as dynamic).errorMessage;
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(errorMessage),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            } else if (state is GoogleSuccess) {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => HomeScreen()),
+              );
+            }
+
             Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => LoginScreen()),
             );
