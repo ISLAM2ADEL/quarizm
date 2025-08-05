@@ -82,7 +82,7 @@ class AppointmentManagementScreen extends StatelessWidget {
                           List<Map<String, dynamic>> upcomingAppointments = [];
 
                           final now = DateTime.now();
-                          final dateFormat = DateFormat("d MMM yyyy HH:mm");
+                          final dateFormat = DateFormat("d MMMM yyyy HH:mm");
 
                           for (var appt in dateList) {
                             try {
