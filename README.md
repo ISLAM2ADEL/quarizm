@@ -7,7 +7,7 @@ Flutter Application For reservation a doctor for Code Quests:
 ## Setup Instructions
 
 You can cownload quarizm application through this link:
-[Quarizm applicaation link](https://drive.google.com/file/d/1gZOPJMq1s4JX5Z_QJ1nkbAdExelF6KfE/view?usp=sharing)
+[Quarizm applicaation link](https://drive.google.com/file/d/10WkwWG9B0Gs9qkDyQCP9WrddLLDP-biN/view?usp=drive_link)
 
 Installation steps:
 
