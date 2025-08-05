@@ -52,10 +52,6 @@ This app follows the **Cubit (a simpler form of BLoC)** architecture for state m
 1. **No notifications:** send notification, If doctor will cancel his appointments for the day or will be late.
 2. **No Offline Usage:** users can't access their upcoming appointments without internet
 
-## Screenshots for application screens
-
-2. **No offline-mode:** users can not access appliccation and show upcoming appointments without internet.
-3. **Only English:** application supports English only right now.
 
 ## video walkthrough of your app
 
